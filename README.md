@@ -1,2 +1,2 @@
-# ProjectEnigma
-til we can get a better name
+# Project Enigma
+Until we can get a better name
