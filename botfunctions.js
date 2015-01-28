@@ -17,7 +17,7 @@ connection.end();
 //Using a text file for now(Good enough for the demo hehehe)
 module.exports = {
    stringlookup: function(ConverString){
-       ConverString = ConverString.substring(7,ConverString.length); 
+       
        /*
        var LByLReader = require('line-by-line');
        var lr = new LByLReader('database.txt');
@@ -47,8 +47,8 @@ module.exports = {
 	   return 'failed';
        }
 */
-
-       return ConverString;
+       var JSONStuff = JSON.parse(ConverString);
+       return JSONStuff.txt;
    }
 
 };

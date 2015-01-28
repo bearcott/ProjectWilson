@@ -21,7 +21,7 @@ http.createServer(function (req, res) {
 	console.log('Data returned: ' + stringreturn);
 	//console.log('POSTed: ' + postData);
 	res.writeHead(200);
-	res.end(postHTML);
+	//res.end(postHTML);
 	});
 }).listen(8080);
 
