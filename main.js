@@ -23,7 +23,7 @@ http.createServer(function (req, res) {
 	var JSONStuff = JSON.parse(postData);
 	var LineByLineReader = require('line-by-line');
 	var lr = new LineByLineReader('database.txt');
-	var tosend = "";
+	var stringreturn = "";
 	lr.on('error', function (err) {
 	    console.log('error: ' + err);// 'err' contains error object
 	});
@@ -37,10 +37,11 @@ http.createServer(function (req, res) {
 	
 	lr.on('end', function () {
 	    // All lines are read, file is closed now.
-	    console.log("sent: " + tosend);		    
+	 //   console.log("sent: " + stringreturn);		    
 	});
 	if(stringreturn != ""){
 	    botsend.botresponder(stringreturn);
+		console.log('sent: ' + stringreturn);
 	}
     });
     //console.log('POSTed: ' + postData);
