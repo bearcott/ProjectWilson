@@ -1,5 +1,5 @@
 var http = require('http');
-var botrecive = require('./botrecieve.js');
+var botrecive = require('./botlookup.js');
 var botsend = require('./botsend.js');
 var postHTML = 
   '<html><head><title>Post Example</title></head>' +
