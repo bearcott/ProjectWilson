@@ -1,6 +1,6 @@
 var http = require('http');
-var bottools = require('./botfunctions.js');
-
+var botrecive = require('./botrecieve.js');
+var botsend = require('./botsend.js');
 var postHTML = 
   '<html><head><title>Post Example</title></head>' +
   '<body>' +
@@ -12,16 +12,19 @@ var postHTML =
   '</body></html>';
 
 http.createServer(function (req, res) {
-	var postData = "";
-	req.on('data', function (chunk) {
-		postData += chunk;
+    var postData = "";
+    req.on('data', function (chunk) {
+	    postData += chunk;
 	});
-	req.on('end' , function () {
-	var stringreturn = bottools.stringlookup(postData);
-	console.log('Data returned: ' + stringreturn);
+    req.on('end' , function () {
+	var stringreturn = botrecive.stringlookup(postData);
+	console.log('Data Sent: ' + stringreturn);
+	if(stringreturn != ""){
+	    botsend.botresponder(stringreturn);
+	}
 	//console.log('POSTed: ' + postData);
 	res.writeHead(200);
 	//res.end(postHTML);
-	});
+    });
 }).listen(8080);
 
