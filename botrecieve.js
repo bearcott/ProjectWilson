@@ -18,7 +18,7 @@ connection.end();
 module.exports = {
    stringlookup: function(ConverString){
        var JSONStuff = JSON.parse(ConverString);
-       if(JSONStuff.text.toLowerCase() == "test"){
+       if(JSONStuff.text.indexOf("test") != -1){
 	   return "It Works!";
        } else {
 	   return "";
