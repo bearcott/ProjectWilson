@@ -14,15 +14,35 @@ connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
 }
 connection.end();
 */
+
 //Using a text file for now(Good enough for the demo hehehe)
 module.exports = {
    stringlookup: function(ConverString){
        var JSONStuff = JSON.parse(ConverString);
-       if(JSONStuff.text.toLowerCase().indexOf("test") != -1){
-	   return "It Works!";
-       } else {
-	   return "";
-       }
+       var LineByLineReader = require('line-by-line');
+       var lr = new LineByLineReader('database.txt');
+       
+       lr.on('error', function (err) {
+	   console.log('error: ' + err);// 'err' contains error object
+       });
 
+       lr.on('line', function (line) {
+	   var tocheck = line.split(",");
+	   if(tocheck[0].indexOf(JSONStuff.text.toLowerCase()) != -1){
+	       return tocheck[1];
+	   }
+       });
+
+       lr.on('end', function () {
+	   return "";
+	   // All lines are read, file is closed now.
+       });
+       return "";
    }
 };
+
+databaselookup: function(SearchString){
+    
+
+    
+}
