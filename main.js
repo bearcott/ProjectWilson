@@ -15,25 +15,21 @@ var postHTML =
 http.createServer(function (req, res) {
     var postData = "";
     req.on('data', function (chunk) {
-	    postData += chunk;
-	});
+	postData += chunk;
+    });
     req.on('end' , function () {
 	var stringreturn = "";
 	async.series([
-	function(callback){
-	
+	    function(callback){	
 		stringreturn = botrecive.stringlookup(postData);
 		var i = 0;
 		console.log('Data Sent: ' + stringreturn);
-	callback();
-	},
-	function(callback){
-	if(stringreturn != ""){
-	    botsend.botresponder(stringreturn);
-	}
-	], function(err) {
-		console.log("error in async");
-	});
+		callback();
+	    }], function(err) {
+		if(stringreturn != ""){
+		    botsend.botresponder(stringreturn);
+		}
+	    });
 	//console.log('POSTed: ' + postData);
 	res.writeHead(200);
 	//res.end(postHTML);
