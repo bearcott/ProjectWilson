@@ -11,7 +11,7 @@ module.exports = {
 
 	//Bot ID hardcoded for now, pls change later
 	body = {
-	    "bot_id" : "ID HERE",
+	    "bot_id" : "f9ff6c8cd993345ef70a959d01",
 	    "text" : response
 	};
 

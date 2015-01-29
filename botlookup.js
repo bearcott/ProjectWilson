@@ -21,28 +21,25 @@ module.exports = {
        var JSONStuff = JSON.parse(ConverString);
        var LineByLineReader = require('line-by-line');
        var lr = new LineByLineReader('database.txt');
-       
+       var tosend = "";
+       console.log("Imported shit");
        lr.on('error', function (err) {
 	   console.log('error: ' + err);// 'err' contains error object
        });
 
        lr.on('line', function (line) {
 	   var tocheck = line.split(",");
-	   if(tocheck[0].indexOf(JSONStuff.text.toLowerCase()) != -1){
-	       return tocheck[1];
+	   if(tocheck[0].toLowerCase().indexOf(JSONStuff.text.toLowerCase()) != -1){
+		tosend = tocheck[1];
 	   }
        });
 
        lr.on('end', function () {
-	   return "";
 	   // All lines are read, file is closed now.
+	console.log("sent: " + tosend);	
+	return tosend;
+	
        });
-       return "";
+      return tosend;
    }
 };
-
-databaselookup: function(SearchString){
-    
-
-    
-}
