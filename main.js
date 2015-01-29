@@ -21,13 +21,14 @@ http.createServer(function (req, res) {
 	var stringreturn = "";
 	async.series([
 	    function(callback){	
-		stringreturn = botrecive.stringlookup(postData);
-		var i = 0;
-		console.log('Data Sent: ' + stringreturn);
-		callback();
-	    }], function(err) {
-		if(stringreturn != ""){
-		    botsend.botresponder(stringreturn);
+		var result = botrecive.stringlookup(postData);
+		
+		//console.log('Data Sent: ' + stringreturn);
+		callback(null, result);
+	    }], function(err, result) {
+		console.log(result);
+		if(result != ""){
+		    botsend.botresponder(result);
 		}
 	    });
 	//console.log('POSTed: ' + postData);
