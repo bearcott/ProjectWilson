@@ -18,22 +18,33 @@ http.createServer(function (req, res) {
 	postData += chunk;
     });
     req.on('end' , function () {
-	var stringreturn = "";
-	async.series([
-	    function(callback){	
-		stringreturn = botrecive.stringlookup(postData);
-		var i = 0;
-		console.log('Data Sent: ' + stringreturn);
-		callback();
-	    }], function(err) {
-		if(stringreturn != ""){
-		    botsend.botresponder(stringreturn);
-		}
-	    });
-	//console.log('POSTed: ' + postData);
-	res.writeHead(200);
-	//res.end(postHTML);
 
+
+	var JSONStuff = JSON.parse(postData);
+	var LineByLineReader = require('line-by-line');
+	var lr = new LineByLineReader('database.txt');
+	var tosend = "";
+	lr.on('error', function (err) {
+	    console.log('error: ' + err);// 'err' contains error object
+	});
+	
+	lr.on('line', function (line) {
+	    var tocheck = line.split(",");
+	    if(tocheck[0].toLowerCase().indexOf(JSONStuff.text.toLowerCase()) != -1){
+		stringreturn = tocheck[1];
+	    }
+	});
+	
+	lr.on('end', function () {
+	    // All lines are read, file is closed now.
+	    console.log("sent: " + tosend);		    
+	});
+	if(stringreturn != ""){
+	    botsend.botresponder(stringreturn);
+	}
     });
+    //console.log('POSTed: ' + postData);
+    res.writeHead(200);
+    //res.end(postHTML);
 }).listen(8080);
 
